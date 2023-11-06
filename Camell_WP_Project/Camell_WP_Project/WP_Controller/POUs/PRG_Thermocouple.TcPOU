@@ -7,7 +7,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fTemp := GVL_Thermocouple.nTemp;]]></ST>
+      <ST><![CDATA[fTemp := GVL.nTemp;]]></ST>
     </Implementation>
     <LineIds Name="PRG_Thermocouple">
       <LineId Id="5" Count="0" />

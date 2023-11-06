@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{7d4e8f35-7948-43f5-9115-ee9eaf49ccbc}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	//Thermocouple
+	nTemp AT %I*: INT;
+	
+	//Power measurement
+	// RMS Current
+	fIL1 AT %I*: REAL;
+	fIL2 AT %I*: REAL;
+	fIL3 AT %I*: REAL;
+	
+	//RMS Voltage
+	fUL1 AT %I*: REAL;
+	fUL2 AT %I*: REAL;
+	fUL3 AT %I*: REAL;
+	
+	//Active Power
+	fActivePower AT %I* : REAL;
+	
+	// Phase angle
+	fcosphi1 AT %I*: REAL;
+	fcosphi2 AT %I*: REAL;
+	fcosphi3 AT %I*: REAL;
+	
+	// Frequency
+	fFrequency AT %I*: REAL;
+	
+	//Motor drive
+	stAxis1: AXIS_REF;
+	bButtonFw AT %I*: BOOL; //Self reset
+	bButtonBw AT %I*: BOOL; //Self reset
+	bButtonHalt AT %I*: BOOL; //Self reset
+	bButtonAuto AT %I*: BOOL; //Latch
+	
+	//VFD Modbus RTU
+	bEnable AT %I*: BOOL; //Self reset
+	bDisable AT %I*: BOOL; //Self reset
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

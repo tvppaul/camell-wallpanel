@@ -10,10 +10,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fActivePowerAbs := ABS(GVL_PowerMeasurement.fActivePower);
-fIL1Abs := ABS(GVL_PowerMeasurement.fIL1);
-fIL2Abs := ABS(GVL_PowerMeasurement.fIL2);
-fIL3Abs := ABS(GVL_PowerMeasurement.fIL3);]]></ST>
+      <ST><![CDATA[fActivePowerAbs := ABS(GVL.fActivePower);
+fIL1Abs := ABS(GVL.fIL1);
+fIL2Abs := ABS(GVL.fIL2);
+fIL3Abs := ABS(GVL.fIL3);]]></ST>
     </Implementation>
     <LineIds Name="PRG_PowerMeasurement">
       <LineId Id="10" Count="2" />

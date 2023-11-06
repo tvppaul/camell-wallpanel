@@ -16,9 +16,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbEnableAxes.bEnableAxes := TRUE;
-fbRTrigMoveFW(CLK:=GVL_MotorDrive.bButtonFw, Q=>);
-fbRTrigMoveBW(CLK:=GVL_MotorDrive.bButtonBw, Q=>);
-fbRTrigHalt(CLK:=GVL_MotorDrive.bButtonHalt, Q=>);
+fbRTrigMoveFW(CLK:=GVL.bButtonFw, Q=>);
+fbRTrigMoveBW(CLK:=GVL.bButtonBw, Q=>);
+fbRTrigHalt(CLK:=GVL.bButtonHalt, Q=>);
 
 IF fbRTrigMoveFw.Q THEN
 	fbHalt1.Execute := FALSE;
@@ -38,7 +38,7 @@ IF fbRTrigHalt.Q THEN
 	fbMoveVelocityBw.Execute := FALSE;
 END_IF
 
-IF GVL_MotorDrive.bButtonAuto THEN
+IF GVL.bButtonAuto THEN
 	CASE nAutoState OF
 		0: //Initialize auto motion
 			fbHalt1.Execute := FALSE;
@@ -205,7 +205,7 @@ A_Halt();]]></ST>
                           </o>
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"GVL_MotorDrive.stAxis1"</v>
+                              <v n="Operand">"GVL.stAxis1"</v>
                               <v n="Type">"AXIS_REF"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
@@ -414,7 +414,7 @@ A_Halt();]]></ST>
                         <l2 n="InputItems" cet="BoxTreeOperand">
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"GVL_MotorDrive.stAxis1"</v>
+                              <v n="Operand">"GVL.stAxis1"</v>
                               <v n="Type">"AXIS_REF"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
@@ -730,7 +730,7 @@ A_Halt();]]></ST>
                         <l2 n="InputItems" cet="BoxTreeOperand">
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"GVL_MotorDrive.stAxis1"</v>
+                              <v n="Operand">"GVL.stAxis1"</v>
                               <v n="Type">"AXIS_REF"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
@@ -1109,7 +1109,7 @@ A_Halt();]]></ST>
                         <l2 n="InputItems" cet="BoxTreeOperand">
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"GVL_MotorDrive.stAxis1"</v>
+                              <v n="Operand">"GVL.stAxis1"</v>
                               <v n="Type">"AXIS_REF"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>

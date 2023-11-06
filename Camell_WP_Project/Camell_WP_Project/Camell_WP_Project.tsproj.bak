@@ -1514,6 +1514,7 @@ External Setpoint Generation:
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
 							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -1606,88 +1607,120 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{A2750A2F-9157-46E4-826D-100FB9870AAF}" Name="WP_Controller" PrjFilePath="WP_Controller\WP_Controller.plcproj" TmcFilePath="WP_Controller\WP_Controller.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0A79AEE4-76E1-C77C-6EBC-00F767142F29}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="WP_Controller\WP_Controller.tmc" TmcHash="{2803F01F-026E-A7B8-5332-8D2E8F7354DE}">
 					<Name>WP_Controller Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>GVL_PowerMeasurement.fIL1</Name>
-							<Comment><![CDATA[ RMS Current]]></Comment>
+							<Name>GVL.nTemp</Name>
+							<Comment><![CDATA[Thermocouple]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bButtonFw</Name>
+							<Comment><![CDATA[Self reset]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bButtonBw</Name>
+							<Comment><![CDATA[Self reset]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.fIL1</Name>
+							<Comment><![CDATA[Power measurement
+ RMS Current]]></Comment>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fIL2</Name>
+							<Name>GVL.fIL2</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fIL3</Name>
+							<Name>GVL.fIL3</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fUL1</Name>
+							<Name>GVL.fUL1</Name>
 							<Comment><![CDATA[RMS Voltage]]></Comment>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fUL2</Name>
+							<Name>GVL.fUL2</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fUL3</Name>
+							<Name>GVL.fUL3</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fActivePower</Name>
+							<Name>GVL.fActivePower</Name>
 							<Comment><![CDATA[Active Power]]></Comment>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fcosphi1</Name>
+							<Name>GVL.fcosphi1</Name>
 							<Comment><![CDATA[ Phase angle]]></Comment>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fcosphi2</Name>
+							<Name>GVL.fcosphi2</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fcosphi3</Name>
+							<Name>GVL.fcosphi3</Name>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_PowerMeasurement.fFrequency</Name>
+							<Name>GVL.fFrequency</Name>
 							<Comment><![CDATA[ Frequency]]></Comment>
 							<Type>REAL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Thermocouple.nTemp</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_MotorDrive.bButtonFw</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_MotorDrive.bButtonBw</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_MotorDrive.stAxis1.NcToPlc</Name>
+							<Name>GVL.stAxis1.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>GVL_MotorDrive.bButtonAuto</Name>
+							<Name>GVL.bButtonHalt</Name>
+							<Comment><![CDATA[Self reset]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bButtonAuto</Name>
+							<Comment><![CDATA[Latch]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bEnable</Name>
+							<Comment><![CDATA[Self reset]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bDisable</Name>
+							<Comment><![CDATA[Self reset]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>GVL_MotorDrive.stAxis1.PlcToNc</Name>
+							<Name>GVL.stAxis1.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
+					<UnrestoredVarLinks ImportTime="2023-11-06T16:55:07">
+						<OwnerA Name="InputDst" Prefix="TIPC^WP_Controller^WP_Controller Instance" Type="1">
+							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
+								<Link VarA="GVL_MotorDrive.stAxis1.NcToPlc" TypeA="MC.NCTOPLC_AXIS_REF" InOutA="0" GuidA="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" VarB="Outputs^ToPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^WP_Controller^WP_Controller Instance" Type="2">
+							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
+								<Link VarA="GVL_MotorDrive.stAxis1.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
@@ -1705,15 +1738,5 @@ External Setpoint Generation:
 				</Instance>
 			</Project>
 		</Plc>
-		<Io/>
 	</Project>
-	<Mappings>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
-		<OwnerA Name="TIPC^WP_Controller^WP_Controller Instance">
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
-				<Link VarA="PlcTask Inputs^GVL_MotorDrive.stAxis1.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^GVL_MotorDrive.stAxis1.PlcToNc" VarB="Inputs^FromPlc"/>
-			</OwnerB>
-		</OwnerA>
-	</Mappings>
 </TcSmProject>
