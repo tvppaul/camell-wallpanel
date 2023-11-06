@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_PowerMeasurement" Id="{927e87b5-7e0a-43fe-a0fe-0f80cfa4dfec}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_PowerMeasurement
+VAR
+	fActivePowerAbs: REAL;
+	fIL1Abs: REAL;
+	fIL2Abs: REAL;
+	fIL3Abs: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fActivePowerAbs := ABS(GVL_PowerMeasurement.fActivePower);
+fIL1Abs := ABS(GVL_PowerMeasurement.fIL1);
+fIL2Abs := ABS(GVL_PowerMeasurement.fIL2);
+fIL3Abs := ABS(GVL_PowerMeasurement.fIL3);]]></ST>
+    </Implementation>
+    <LineIds Name="PRG_PowerMeasurement">
+      <LineId Id="10" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
