@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="81d112d8-0152-408a-8ebf-7d6260d05547">PRG_MODBUSRTU</Type>
+      <From>PRG_ModbusRTU</From>
+      <To>PRG_PLCModbusRTU</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

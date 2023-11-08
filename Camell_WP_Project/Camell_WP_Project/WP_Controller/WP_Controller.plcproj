@@ -43,7 +43,7 @@
     <Compile Include="POUs\PRG_LoadcellScaling.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PRG_ModbusRTU.TcPOU">
+    <Compile Include="POUs\PRG_PLCModbusRTU.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_MotorDrive.TcPOU">
