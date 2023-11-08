@@ -44,7 +44,7 @@ VAR_GLOBAL
 	bModbusCoilBit1 : BOOL;
 	
 	// Virtual toggle buttons for write values using MODBUS RTU
-	bExecuteWriteCoils: BOOL;
+	bExecuteWriteCoils: BOOL:=TRUE;
 	bExecuteWriteRegs0: BOOL;
 	//bExecuteWriteRegs1: BOOL;
 
