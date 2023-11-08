@@ -2623,6 +2623,15 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<BitSize>5</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>5</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
 			<BitSize>6</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
@@ -2681,15 +2690,6 @@ External Setpoint Generation:
 			<ArrayInfo>
 				<LBound>0</LBound>
 				<Elements>1</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
-			<BitSize>5</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>5</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -2941,7 +2941,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{A2750A2F-9157-46E4-826D-100FB9870AAF}" Name="WP_Controller" PrjFilePath="WP_Controller\WP_Controller.plcproj" TmcFilePath="WP_Controller\WP_Controller.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="WP_Controller\WP_Controller.tmc" TmcHash="{3894B4B1-7F2E-2BC4-3557-D3FD0D1F0DB6}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="WP_Controller\WP_Controller.tmc" TmcHash="{A7F73BF5-5988-3E33-9EC9-FBECCE99846C}">
 					<Name>WP_Controller Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3091,6 +3091,11 @@ External Setpoint Generation:
 							<Name>GVL.bSafeCommErr</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>GVL.bSafeRedLedInput</Name>
+							<Comment><![CDATA[ safety red led reception signal for ouput signal imported from EL6910	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 						<Name>VisionTask Outputs</Name>
@@ -3119,6 +3124,11 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL.bSafeAck</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.bSafeRedLedOutput</Name>
+							<Comment><![CDATA[ safety output signal for EL2809 ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -3622,7 +3632,7 @@ External Setpoint Generation:
 								</Entry>
 							</Pdo>
 							<Pdo Name="DIG Outputs" Index="#x1600" InOut="1" Flags="#x0010" SyncMan="2">
-								<Entry Name="Channel 1__Output" Index="#x7000" Sub="#x01">
+								<Entry Name="Channel 1__Output" Index="#x7000" Sub="#x01" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="Channel 2__Output" Index="#x7010" Sub="#x01">
@@ -3647,8 +3657,8 @@ External Setpoint Generation:
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x1afe3052" RevisionNo="#x00110000" InfoDataAddr="true" RepeatSupport="true" TimeoutMailbox2="10000" TComSupport="true" CheckRevisionNoType="3" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6910, TwinSAFE PLC" Desc="EL6910" PortABoxInfo="#x01000003">
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>00120f002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d12002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001209002400010003000000000000000200001224010000</SyncMan>
+							<SyncMan>001d0c002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -3659,18 +3669,12 @@ External Setpoint Generation:
 							<BootStrapData>0010f400f410f400</BootStrapData>
 							<MBoxUserCmdData>004003000a00000000000000030010000000000000000000000000000000000020f3100502000000010000</MBoxUserCmdData>
 							<Pdo Name="ConnectionInputs" Index="#x1a00" Flags="#x2011" SyncMan="3">
-								<Entry Name="Message_5 TxPDO" Index="#x7000" Sub="#x01">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
-								<Entry Name="Message_6 TxPDO" Index="#x7000" Sub="#x02">
+								<Entry Name="Message_10 TxPDO" Index="#x7000" Sub="#x01">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="ConnectionOutputs" Index="#x1600" InOut="1" Flags="#x2011" SyncMan="2">
-								<Entry Name="Message_5 RxPDO" Index="#x6000" Sub="#x01">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
-								<Entry Name="Message_6 RxPDO" Index="#x6000" Sub="#x02">
+								<Entry Name="Message_10 RxPDO" Index="#x6000" Sub="#x01">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
 							</Pdo>
@@ -3681,8 +3685,11 @@ External Setpoint Generation:
 								<Entry Name="Standard Out Var 4" Index="#x7000" Sub="#x02">
 									<Type>BIT</Type>
 								</Entry>
+								<Entry Name="Standard Out Var 9" Index="#x7000" Sub="#x03">
+									<Type>BIT</Type>
+								</Entry>
 								<Entry>
-									<Type GUID="{18071995-0000-0000-0000-002000000006}">ARRAY [0..5] OF BIT</Type>
+									<Type GUID="{18071995-0000-0000-0000-002000000005}">ARRAY [0..4] OF BIT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="StandardOutputs" Index="#x17f0" InOut="1" Flags="#x2011" SyncMan="2">
@@ -6003,20 +6010,18 @@ Bit 8 - 15 : reserved]]></Comment>
 		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^Device 1 (EtherCAT)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 4 (EL6910)">
-				<Link VarA="Term 1 (EK1200)^Term 5 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_5 RxPDO"/>
-				<Link VarA="Term 12 (EK1818)^Term 15 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_6 TxPDO"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 5 (EL1904)">
-				<Link VarA="Term 1 (EK1200)^Term 4 (EL6910)^ConnectionInputs^Message_5 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 12 (EK1818)^Term 15 (EL2904)">
-				<Link VarA="Term 1 (EK1200)^Term 4 (EL6910)^ConnectionOutputs^Message_6 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
+				<Link VarA="Term 1 (EK1200)^Term 5 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^Message_10 TxPDO"/>
+				<Link VarA="Term 1 (EK1200)^Term 5 (EL1904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^Message_10 RxPDO"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^WP_Controller^WP_Controller Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 3 (EL2014)">
+				<Link VarA="VisionTask Outputs^GVL.bSafeRedLedOutput" VarB="DIG Outputs^Channel 1^Output"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 4 (EL6910)">
 				<Link VarA="VisionTask Inputs^GVL.bSafeCommErr" VarB="StandardInputs^Standard Out Var 3"/>
 				<Link VarA="VisionTask Inputs^GVL.bSafeFBErr" VarB="StandardInputs^Standard Out Var 4"/>
+				<Link VarA="VisionTask Inputs^GVL.bSafeRedLedInput" VarB="StandardInputs^Standard Out Var 9"/>
 				<Link VarA="VisionTask Outputs^GVL.bSafeAck" VarB="StandardOutputs^Standard In Var 1"/>
 				<Link VarA="VisionTask Outputs^GVL.bSafeRun" VarB="StandardOutputs^Standard In Var 2"/>
 			</OwnerB>

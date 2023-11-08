@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TargetSystemConfig Crc="1492981173" Version="1.5">
+<TargetSystemConfig Crc="1593935245" Version="1.5">
   <TargetSystemType>HSafetyPLC</TargetSystemType>
   <TargetSystemSubType>EL6910</TargetSystemSubType>
   <IsExternalDevice>false</IsExternalDevice>
@@ -7,7 +7,7 @@
   <TargetSystemObjectName>Term 4 (EL6910)</TargetSystemObjectName>
   <SoftwareVersion>02 (V01.03)</SoftwareVersion>
   <SerialNumber>1373072</SerialNumber>
-  <ProjectCRC>21199</ProjectCRC>
+  <ProjectCRC>9194</ProjectCRC>
   <MapProjectCRC>false</MapProjectCRC>
   <MapSerialNumber>false</MapSerialNumber>
   <VersionNumber>1</VersionNumber>

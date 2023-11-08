@@ -82,6 +82,8 @@ VAR_GLOBAL
 	bSafeAck AT %Q*:BOOL;
 	bSafeFBErr AT %I*: BOOL;
 	bSafeCommErr AT %I*: BOOL;
+	bSafeRedLedOutput AT %Q*:BOOL; // safety output signal for EL2809 
+	bSafeRedLedInput AT %I*:BOOL; // safety red led reception signal for ouput signal imported from EL6910	
 	
 	
 END_VAR]]></Declaration>

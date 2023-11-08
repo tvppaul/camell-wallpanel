@@ -55,6 +55,9 @@
     <Compile Include="POUs\PRG_PowerMeasurement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\PRG_SafetyLightCurtain.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_Thermocouple.TcPOU">
       <SubType>Code</SubType>
     </Compile>
