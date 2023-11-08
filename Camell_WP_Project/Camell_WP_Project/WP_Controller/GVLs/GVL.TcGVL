@@ -77,6 +77,13 @@ VAR_GLOBAL
 	bVirtualToggleButton5:BOOL;
 	bVirtualToggleButton6:BOOL;
 	
+	// TwinSAFE declaration
+	bSafeRun AT %Q*:BOOL;
+	bSafeAck AT %Q*:BOOL;
+	bSafeFBErr AT %I*: BOOL;
+	bSafeCommErr AT %I*: BOOL;
+	
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
