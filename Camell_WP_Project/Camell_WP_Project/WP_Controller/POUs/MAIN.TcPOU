@@ -8,11 +8,16 @@ END_VAR
     <Implementation>
       <ST><![CDATA[PRG_Thermocouple();
 PRG_PowerMeasurement();
-PRG_MotorDrive();]]></ST>
+PRG_MotorDrive();
+PRG_PneumaticValves();
+PRG_ModbusRTU();
+PRG_LoadcellScaling();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="6" Count="1" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="11" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

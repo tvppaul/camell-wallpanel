@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="VISION" Id="{c83acc5f-4ec8-4485-ad39-a0115207ba4b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM VISION
+VAR
+	hr					: HRESULT;
+	
+	fbControl			: FB_VN_GevCameraControl;
+	eState				: ETcVnCameraState;
+	
+	// Image
+	ipImage				: ITcVnImage;
+	ipImageWork			: ITcVnImage;
+	ipImageResult		: ITcVnImage;
+	
+	// displayable Image
+	ipImageDispl		: ITcVnDisplayableImage;
+	ipImageWorkDispl	: ITcVnDisplayableImage;
+	ipImageResultDispl	: ITcVnDisplayableImage;
+	
+	// QR Code
+	ipCodeDecodedList   :    ITcVnContainer; 
+	ipCodeContourList   :    ITcVnContainer;
+	sCodeAsString       :    STRING(255);
+	sErrorString		:	 STRING(255);
+	eBarcodeSearchDirection   :   ETcVnBarcodeSearchDirection := TCVN_BSD_ANY;
+	eBarcodeType              :   ETcVnBarcodeType := TCVN_BT_EAN13;
+
+
+	// Watchdog
+	hrWD                :    HRESULT;
+	//tStop               :    DINT := 20000; //qr code
+	tStop               :    DINT := 50000; //qr code
+	tRest               :    DINT;
+
+	// Color
+	aRedColor           :    TcVnVector4_LREAL := [255, 0, 0];
+	aGreenColor			:	 TcVnVector4_LREAL := [0, 255, 0];
+
+	// Return code
+	nReturnCode               :   DWORD;
+	sReturnCode               :   STRING;
+	sResultText               :   STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[eState := fbControl.GetState();
+
+CASE eState OF
+	TCVN_CS_INITIAL, 			(* The camera controller is in the initial state and ready to establish the connection to the camera. *)
+	TCVN_CS_INITIALIZING, 		(* The camera controller is initializing the camera. *)
+	TCVN_CS_INITIALIZED, 		(* The camera controller has initialized the camera. *)
+	TCVN_CS_OPENING, 			(* The camera controller is establishing the connection to the camera. *)
+	TCVN_CS_OPENED, 			(* The connection to the camera has been established and the camera controller is ready to start the image acquisition. *)
+	TCVN_CS_STARTACQUISITION: 	(* The camera controller is starting the image acquisition. *)
+	
+		hr := fbControl.StartAcquisition();
+	
+	TCVN_CS_ACQUIRING: 			(* The camera is sending images (either streaming or manually triggered, depending on the configuration). *)
+	
+		hr := fbControl.GetCurrentImage(ipImage);
+		IF  SUCCEEDED(hr) THEN
+			sCodeAsString :='Scanning... No code found!';
+			// Conver color space from grayscale to RGB, Display input image (without processing)
+			hr:=F_VN_ConvertColorSpace(ipImage,ipImageResult,ETcVnColorSpaceTransform.TCVN_CST_GRAY_TO_RGB,hr);
+			hr:=F_VN_CopyImage(ipImageResult,ipImageWork,hr);
+			hr:= F_VN_CopyIntoDisplayableImage(ipSrcImage:= ipImage,ipDestImage:=ipImageDispl,hrPrev:=hr);
+			// Pre result image processing
+			hr := F_VN_PutTextExp(sCodeAsString, ipImageWork, 50, 100, TCVN_FT_HERSHEY_PLAIN, 5, aRedColor,3, TCVN_LT_4_CONNECTED, FALSE, hr);
+			hr:=F_VN_CopyIntoDisplayableImage(ipSrcImage:= ipImageWork,ipDestImage:=ipImageResultDispl,hrPrev:=hr);
+
+			// Execute the Barcode Reading Function with EAN13 selected monitored by the Watchdog-Function
+			hrWD := F_VN_StartRelWatchdog(tStop, hr);
+			(*hr := F_VN_ReadQRCodeExp(
+            ipSrcImage      :=  ipImage,
+            ipDecodedData   :=  ipCodeDecodedList,
+            ipContours      :=  ipCodeContourList,
+            nCodeNumber     :=  1,
+            eSearchStrategy :=  TCVN_CSS_ONLY_NOT_INVERTED + TCVN_CSS_ONLY_NOT_FLIPPED,
+            hrPrev          :=  hr
+   			 );*)
+	    	hr := F_VN_ReadBarcodeExp(
+               ipSrcImage         :=   ipImage,
+               ipDecodedData      :=   ipCodeDecodedList,
+               ipContours         :=   ipCodeContourList,
+               eBarcodeType       :=   eBarcodeType,
+               nCodeNumber        :=   1, 
+               eSearchDirection   :=   eBarcodeSearchDirection,
+               hrPrev             :=   hr);
+			hrWD := F_VN_StopWatchdog(hrWD, tRest => tRest);
+			//ADSLOGDINT(msgCtrlMask:=ADSLOG_MSGTYPE_MSGBOX,msgFmtStr:='hrResult1 %d',dintArg:=hr);
+			// Handle return-code
+			IF hr = S_OK THEN
+				// Prepare code result in string
+				hr := F_VN_ExportSubContainer_String(ipCodeDecodedList, 0, sCodeAsString, 255, hr);
+				sCodeAsString := CONCAT('Code: ', sCodeAsString);
+			ELSE
+				// Check for succeeded return codes or add specific error handling
+				CASE hr OF
+					S_FALSE: 
+						sResultText := 'No code found...'; 
+			
+					S_WATCHDOG_TIMEOUT: 
+						sResultText := 'Cancelled by watchdog...'; 
+				ELSE
+					// Extract error-code from HRESULT & react accordingly
+					nReturnCode := DINT_TO_DWORD(hr) AND 16#FFF; 
+					sReturnCode := DWORD_TO_HEXSTR(nReturnCode, 3, FALSE); 
+					sResultText := CONCAT('Returncode ', sReturnCode); 
+				END_CASE
+			END_IF
+			
+			// Draw Code Contour into Result Image
+		    hr := F_VN_DrawContours(ipCodeContourList, 0, ipImageResult, aGreenColor, 3, hr);
+			// Write Code into Result Image
+    		hr := F_VN_PutTextExp(sCodeAsString, ipImageResult, 50, 100, TCVN_FT_HERSHEY_PLAIN, 5, aGreenColor,3, TCVN_LT_4_CONNECTED, FALSE, hr);
+			// Write Code Reading proceeded time into Result Image
+			//sText := CONCAT(CONCAT('Time: ', DINT_TO_STRING(tStop - tRest)), 'us');
+			hr := F_VN_TransformIntoDisplayableImage(ipSrcImage:=ipImageResult, ipDestImage:=ipImageResultDispl, hrPrev:=hr);
+		END_IF
+		
+
+	TCVN_CS_ERROR: 	(* The camera controller is in an error state (e.g. the connection to the camera was lost). *)
+		fbControl.Reset();
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="VISION">
+      <LineId Id="47" Count="77" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

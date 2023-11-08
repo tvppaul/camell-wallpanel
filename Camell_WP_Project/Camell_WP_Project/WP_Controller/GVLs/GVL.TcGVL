@@ -38,6 +38,45 @@ VAR_GLOBAL
 	//VFD Modbus RTU
 	bEnable AT %I*: BOOL; //Self reset
 	bDisable AT %I*: BOOL; //Self reset
+	
+	// Bit 0 and Bit 1 declaration
+	bModbusCoilBit0 : BOOL;
+	bModbusCoilBit1 : BOOL;
+	
+	// Virtual toggle buttons for write values using MODBUS RTU
+	bExecuteWriteCoils: BOOL;
+	bExecuteWriteRegs0: BOOL;
+	//bExecuteWriteRegs1: BOOL;
+
+	// Input STRING from HMI, MAXIMUM 20 characters
+	sInputFromHMI: STRING(20);		
+
+	//Constant value for testing, used for EL2596
+	bLedEnable AT %Q*:BOOL:=TRUE;
+	bLedOutput AT %Q*:BOOL:=TRUE;
+	bOutputCurrent AT %Q*: UINT:=300;
+	
+	// Constant value for EL2809 controlling strobe
+	bLedEnableEL2xxx AT %Q*:BOOL:=TRUE; 
+	
+	// Loadcell scaling variables
+	uLoadCellRawValue AT %I*: DINT;
+	uLoadCellScaledValue: REAL;
+	
+	// Output signal variables for sneumatic valves 
+	bValve1 AT %Q*:BOOL;
+	bValve2 AT %Q*:BOOL;
+	bValve3 AT %Q*:BOOL;
+	bValve4 AT %Q*:BOOL;
+	bValve5 AT %Q*:BOOL;
+	bValve6 AT %Q*:BOOL;
+	bVirtualToggleButton1:BOOL;
+	bVirtualToggleButton2:BOOL;
+	bVirtualToggleButton3:BOOL;
+	bVirtualToggleButton4:BOOL;
+	bVirtualToggleButton5:BOOL;
+	bVirtualToggleButton6:BOOL;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
