@@ -3063,6 +3063,18 @@ External Setpoint Generation:
 				<Name>BarCodeScanning</Name>
 				<FileSource Id="1" VisionObjectGUID="{53AC0717-E904-4F70-ACE8-9B20DB63D969}">
 					<Name>FileSource1</Name>
+					<Xml>
+						<TcSmExtensions>
+							<TcSmExtension Guid="{0C5845FB-E311-440A-93A1-F7B04CFC9860}">
+								<Settings>
+									<FileSource>
+										<CycleTime Type="System.Single">10</CycleTime>
+										<TriggerMode Type="System.Boolean">False</TriggerMode>
+									</FileSource>
+								</Settings>
+							</TcSmExtension>
+						</TcSmExtensions>
+					</Xml>
 					<Module Id="#x01010020" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcVision|4.0.3.5" TcSmClass="CTComVisionObjDef">
 						<Name>FileSource1 Image Acquisition (CTcIoFileImageAcquisition)</Name>
 						<ImageId>1000</ImageId>
@@ -3171,7 +3183,7 @@ External Setpoint Generation:
 								</Value>
 								<Value>
 									<Name>BaseDir</Name>
-									<String></String>
+									<String>C:\Users\Public\TcVision\FileSources\EF0LNO9Z</String>
 								</Value>
 								<Value>
 									<Name>ServiceTimeout</Name>
@@ -3179,7 +3191,7 @@ External Setpoint Generation:
 								</Value>
 								<Value>
 									<Name>IsRunning</Name>
-									<EnumText>FALSE</EnumText>
+									<EnumText>TRUE</EnumText>
 								</Value>
 							</ParameterValues>
 							<InterfacePointerValues>
