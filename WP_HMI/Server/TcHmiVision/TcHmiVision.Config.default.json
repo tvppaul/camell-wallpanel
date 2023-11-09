@@ -1,0 +1,10 @@
+{
+    "RUNTIMES": {
+        "IPC": {
+            "ENABLED": true,
+            "NETID": "169.254.69.6.1.1",
+            "PORT": 851,
+            "STREAM_SERVER_PORT": 55704
+        }
+    }
+}
