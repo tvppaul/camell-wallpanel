@@ -1,4 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {}
+  "definitions": {
+    "TcUcTextField": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "UserControls\\TcUcTextField.usercontrol.json",
+      "id": "tchmi:project#/definitions/TcUcTextField",
+      "type": "object"
+    }
+  }
 }

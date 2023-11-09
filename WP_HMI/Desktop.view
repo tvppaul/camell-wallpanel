@@ -82,7 +82,7 @@
         "value": "TcHmiAlarm"
       }
     ],
-    "targetRegion": "",
+    "targetRegion": "%ctrl%CentreRegion%/ctrl%",
     "targetContent": ""
   },
   {
@@ -146,27 +146,27 @@
 [
   {
     "name": "Machine Vision",
-    "content": "Contents/VisionGUI.content"
+    "content": null
   },
   {
     "name": "Temperature",
-    "content": null
+    "content": "Contents/TemperatureGUI.content"
   },
   {
     "name": "Power Monitoring",
-    "content": null
+    "content": "Contents/PowerMonitoringGUI.content"
   },
   {
     "name": "Load Cells",
-    "content": "Contents/LoadcellGUI.content"
+    "content": ""
   },
   {
     "name": "Pneumatic Valves",
-    "content": "Contents/PneumaticValveGUI.content"
+    "content": null
   },
   {
     "name": "Motor Drive",
-    "content": null
+    "content": "Contents/MotorDriveGUI.content"
   },
   {
     "name": "Safety",
@@ -174,11 +174,11 @@
   },
   {
     "name": "VFD Modbus RTU",
-    "content": null
+    "content": "Contents/VfdMbRtuGUI.content"
   },
   {
     "name": "PLC Modbus RTU",
-    "content": "Contents/PlcMbRtuGUI.content"
+    "content": null
   }
 ]
 </script>
@@ -229,7 +229,7 @@
 }
 </script>
 </div>
-<div id="CentreRegion" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="%f%100-%ctrl%TopHeader::Height%/ctrl%-%ctrl%TopBreadcrumb::Height%/ctrl%%/f%" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="%" data-tchmi-top="%f%%ctrl%TopHeader::Height%/ctrl%+%ctrl%TopBreadcrumb::Height%/ctrl%%/f%" data-tchmi-top-unit="%" data-tchmi-width="%ctrl%TopBreadcrumb::Width%/ctrl%" data-tchmi-width-unit="%" data-tchmi-target-content="">
+<div id="CentreRegion" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="%f%100-%ctrl%TopHeader::Height%/ctrl%-%ctrl%TopBreadcrumb::Height%/ctrl%%/f%" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="%" data-tchmi-top="%f%%ctrl%TopHeader::Height%/ctrl%+%ctrl%TopBreadcrumb::Height%/ctrl%%/f%" data-tchmi-top-unit="%" data-tchmi-width="%ctrl%TopBreadcrumb::Width%/ctrl%" data-tchmi-width-unit="%">
 
 <script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
 {

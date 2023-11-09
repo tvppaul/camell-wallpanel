@@ -52,15 +52,12 @@
       "type": "Stylesheet"
     }
   ],
-  "userControls": [],
-  "content": [
+  "userControls": [
     {
-      "url": "Contents/PlcMbRtuGUI.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
+      "url": "UserControls/TcUcTextField.usercontrol"
+    }
+  ],
+  "content": [
     {
       "url": "Contents/VfdMbRtuGUI.content",
       "preload": false,
@@ -69,28 +66,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/SafetyGUI.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
       "url": "Contents/MotorDriveGUI.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/PneumaticValveGUI.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/LoadcellGUI.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -105,13 +81,6 @@
     },
     {
       "url": "Contents/TemperatureGUI.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/VisionGUI.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -164,10 +133,6 @@
     {
       "name": "Beckhoff.TwinCAT.HMI.Functions",
       "basePath": "/Beckhoff.TwinCAT.HMI.Functions"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.Vision.Controls",
-      "basePath": "/Beckhoff.TwinCAT.HMI.Vision.Controls"
     }
   ],
   "keyboardLayouts": [

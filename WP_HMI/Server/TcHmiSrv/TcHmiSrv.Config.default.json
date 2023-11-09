@@ -27,17 +27,7 @@
     "DEFAULTTIMEFORMATLOCALE": "client",
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
-    "DEFINITIONS": {
-        "PLC1.ITcVnDisplayableImage": {
-            "attributes": {
-                "Category": "TcVnDisplayableImage",
-                "CppApi_NoSmartPointer": "",
-                "RelatedType": "{48da88b5-7b23-4bd4-921b-d39483f1d3ba}",
-                "docuFolder": "Interfaces\\Images"
-            },
-            "type": "object"
-        }
-    },
+    "DEFINITIONS": {},
     "DEFLATECOMPRESSIONLEVEL": 5,
     "DIAGNOSTICS_DOMAINS": [],
     "DISABLED_CONFIGURATION_HINTS": [],
@@ -65,6 +55,13 @@
             "REQUIRED": true,
             "STARTUPTYPE": 0
         },
+        "TcHmiSqliteHistorize": {
+            "ENABLED": true,
+            "NAME": "TcHmiSqliteHistorize",
+            "PATH": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.SqliteHistorize.19.0.109\\runtimes\\win-x64\\native\\",
+            "REQUIRED": false,
+            "STARTUPTYPE": 1
+        },
         "TcHmiSqliteLogger": {
             "ENABLED": true,
             "NAME": "TcHmiSqliteLogger",
@@ -79,13 +76,6 @@
             "PATH": "TcHmiUserManagement\\",
             "PROCESSID": -1,
             "REQUIRED": true,
-            "STARTUPTYPE": 1
-        },
-        "TcHmiVision": {
-            "ENABLED": true,
-            "NAME": "TcHmiVision",
-            "PATH": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Vision.13.7.109\\runtimes\\win\\net472\\",
-            "REQUIRED": false,
             "STARTUPTYPE": 1
         }
     },
@@ -1918,26 +1908,6 @@
             },
             "USEMAPPING": true
         },
-        "IPC.VISION.ipImageDispl.jpeg": {
-            "ACCESS": 3,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": true,
-            "MAPPING": "IPC::VISION::ipImageDispl::jpeg",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BINARY"
-            },
-            "USEMAPPING": true
-        },
-        "IPC.VISION.ipImageResultDispl.jpeg": {
-            "ACCESS": 3,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": true,
-            "MAPPING": "IPC::VISION::ipImageResultDispl::jpeg",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BINARY"
-            },
-            "USEMAPPING": true
-        },
         "Import": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -2536,48 +2506,11 @@
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bExecuteWriteRegs0": {
+        "PLC1.GVL.bButtonAuto": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bExecuteWriteRegs0",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bModbusCoilBit0": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bModbusCoilBit0",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "comment": "Bit 0 and Bit 1 declaration"
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bModbusCoilBit1": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bModbusCoilBit1",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bValve1": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve1",
+            "MAPPING": "PLC1::GVL::bButtonAuto",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -2585,19 +2518,113 @@
                     },
                     {
                         "attributes": {
-                            "TcAddressType": "Output"
+                            "TcAddressType": "Input"
                         },
-                        "comment": "Output signal variables for sneumatic valves"
+                        "comment": "Latch"
                     }
                 ]
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bValve2": {
+        "PLC1.GVL.bButtonBw": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve2",
+            "MAPPING": "PLC1::GVL::bButtonBw",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bButtonFw": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bButtonFw",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bButtonHalt": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bButtonHalt",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bDisable": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bDisable",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bEnable": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bEnable",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bFan": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bFan",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -2612,11 +2639,11 @@
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bValve3": {
+        "PLC1.GVL.bLight": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve3",
+            "MAPPING": "PLC1::GVL::bLight",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -2631,11 +2658,45 @@
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bValve4": {
+        "PLC1.GVL.bReverseMotor": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve4",
+            "MAPPING": "PLC1::GVL::bReverseMotor",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bSetMotorFrequency": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bSetMotorFrequency",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "Self reset"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.bSwOff": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::bSwOff",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -2643,18 +2704,19 @@
                     },
                     {
                         "attributes": {
-                            "TcAddressType": "Output"
-                        }
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Self reset"
                     }
                 ]
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bValve5": {
+        "PLC1.GVL.bSwOn": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve5",
+            "MAPPING": "PLC1::GVL::bSwOn",
             "SCHEMA": {
                 "allOf": [
                     {
@@ -2662,117 +2724,165 @@
                     },
                     {
                         "attributes": {
-                            "TcAddressType": "Output"
-                        }
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Self reset"
                     }
                 ]
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bValve6": {
+        "PLC1.GVL.fActivePower": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bValve6",
+            "MAPPING": "PLC1::GVL::fActivePower",
             "SCHEMA": {
                 "allOf": [
                     {
-                        "$ref": "tchmi:general#/definitions/BOOL"
+                        "$ref": "tchmi:general#/definitions/REAL"
                     },
                     {
                         "attributes": {
-                            "TcAddressType": "Output"
-                        }
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Active Power"
                     }
                 ]
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.bVirtualToggleButton1": {
+        "PLC1.GVL.fFrequency": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton1",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bVirtualToggleButton2": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton2",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bVirtualToggleButton3": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton3",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bVirtualToggleButton4": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton4",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bVirtualToggleButton5": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton5",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.bVirtualToggleButton6": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::bVirtualToggleButton6",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "PLC1.GVL.sInputFromHMI": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::sInputFromHMI",
+            "MAPPING": "PLC1::GVL::fFrequency",
             "SCHEMA": {
                 "allOf": [
                     {
-                        "comment": "bExecuteWriteRegs1: BOOL;\r\n Input STRING from HMI, MAXIMUM 20 characters",
-                        "maxLength": 20
+                        "$ref": "tchmi:general#/definitions/REAL"
                     },
                     {
-                        "$ref": "tchmi:general#/definitions/String"
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Frequency"
                     }
                 ]
             },
             "USEMAPPING": true
         },
-        "PLC1.GVL.uLoadCellScaledValue": {
+        "PLC1.GVL.fIL1": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::GVL::uLoadCellScaledValue",
+            "MAPPING": "PLC1::GVL::fIL1",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "RMS Current"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.fUL1": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::fUL1",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "RMS Voltage"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.fcosphi1": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::fcosphi1",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/REAL"
+                    },
+                    {
+                        "attributes": {
+                            "TcAddressType": "Input"
+                        },
+                        "comment": "Phase angle"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.GVL.stAxis1.NcToPlc.ActPos": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL::stAxis1::NcToPlc::ActPos",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/LREAL"
+                    },
+                    {
+                        "propertyOrder": 11
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.PRG_MotorDrive.nSpeed": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::PRG_MotorDrive::nSpeed",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/INT"
+                    },
+                    {
+                        "comment": "degrees/sec"
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.PRG_Thermocouple.fTemp": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::PRG_Thermocouple::fTemp",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/REAL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.PRG_VfdModbusRtu.nSetFreqVal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::PRG_VfdModbusRtu::nSetFreqVal",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/WORD"
             },
             "USEMAPPING": true
         },
@@ -3099,6 +3209,271 @@
             "MAPPING": "Config",
             "OPTIONS": {},
             "SCHEMA": {},
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.Config": {
+            "ACCESS": 0,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "Config",
+            "OPTIONS": {},
+            "SCHEMA": {},
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.DeleteDatabaseEntries": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "DeleteDatabaseEntries",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "writeValue": {
+                    "properties": {
+                        "disableRecording": {
+                            "type": "boolean"
+                        },
+                        "symbolName": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.Diagnostics": {
+            "ACCESS": 1,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "Diagnostics",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "additionalProperties": false,
+                "function": true,
+                "properties": {
+                    "databaseSize": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/Number"
+                            },
+                            {
+                                "displayClass": "byte",
+                                "propertyOrder": 1,
+                                "readOnly": true
+                            }
+                        ]
+                    },
+                    "estimatedDatabaseSize": {
+                        "allOf": [
+                            {
+                                "$ref": "tchmi:general#/definitions/Number"
+                            },
+                            {
+                                "displayClass": "byte",
+                                "propertyOrder": 5,
+                                "readOnly": true
+                            }
+                        ]
+                    },
+                    "estimatedDatabaseSizePerSymbol": {
+                        "additionalProperties": {
+                            "allOf": [
+                                {
+                                    "$ref": "tchmi:general#/definitions/Number"
+                                },
+                                {
+                                    "displayClass": "byte",
+                                    "readOnly": true
+                                }
+                            ]
+                        },
+                        "readOnly": true,
+                        "type": "object"
+                    },
+                    "numEntries": {
+                        "configDescription": "descNumEntries",
+                        "propertyOrder": 2,
+                        "readOnly": true,
+                        "type": "integer"
+                    },
+                    "numEntriesLifetime": {
+                        "configDescription": "descNumEntries",
+                        "propertyOrder": 3,
+                        "readOnly": true,
+                        "type": "number"
+                    },
+                    "recordingTime": {
+                        "format": "timespan",
+                        "propertyOrder": 4,
+                        "readOnly": true,
+                        "type": "string"
+                    }
+                },
+                "readOnly": true,
+                "type": "object"
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.GetTrendLineData": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "GetTrendLineData",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "properties": {
+                    "axesData": {
+                        "description": "descAxisData",
+                        "items": {
+                            "items": {
+                                "properties": {
+                                    "error": {
+                                        "type": "number"
+                                    },
+                                    "flags": {
+                                        "description": "descAxisDataFlags",
+                                        "type": "string"
+                                    },
+                                    "x": {
+                                        "description": "descAxisDataX",
+                                        "format": "date-time",
+                                        "type": "string"
+                                    },
+                                    "y": {
+                                        "description": "descAxisDataY",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object",
+                "writeValue": {
+                    "properties": {
+                        "chartName": {
+                            "description": "descChartName",
+                            "type": "string"
+                        },
+                        "displayWidth": {
+                            "minimum": 2.0,
+                            "type": "number"
+                        },
+                        "xAxisEnd": {
+                            "$ref": "tchmi:server#/definitions/stringTypeArray"
+                        },
+                        "xAxisStart": {
+                            "$ref": "tchmi:server#/definitions/stringTypeArray"
+                        },
+                        "yAxes": {
+                            "items": {
+                                "additionalProperties": false,
+                                "properties": {
+                                    "symbol": {
+                                        "description": "descSymbolName",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "symbol"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "chartName",
+                        "yAxes",
+                        "xAxisStart",
+                        "displayWidth"
+                    ],
+                    "type": "object"
+                }
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.GetTrendLineWindow": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "GetTrendLineWindow",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "properties": {
+                    "xAxisEnd": {
+                        "description": "descTrendLineAxisEndX",
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "xAxisStart": {
+                        "description": "descTrendLineAxisStartX",
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "writeValue": {
+                    "properties": {
+                        "chartName": {
+                            "description": "descChartName",
+                            "type": "string"
+                        },
+                        "xAxisEnd": {
+                            "$ref": "tchmi:server#/definitions/stringTypeArray"
+                        },
+                        "xAxisStart": {
+                            "$ref": "tchmi:server#/definitions/stringTypeArray"
+                        },
+                        "yAxes": {
+                            "description": "descTrendLineAxisY",
+                            "items": {
+                                "additionalProperties": false,
+                                "properties": {
+                                    "symbol": {
+                                        "description": "descSymbolName",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "symbol"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "chartName",
+                        "yAxes",
+                        "xAxisStart"
+                    ],
+                    "type": "object"
+                }
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiSqliteHistorize.HistorizeData": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSqliteHistorize",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "HistorizeData",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true
+            },
             "USEMAPPING": true
         },
         "TcHmiSqliteLogger.Clear": {
@@ -3484,83 +3859,6 @@
             },
             "USEMAPPING": true
         },
-        "TcHmiVision.Config": {
-            "ACCESS": 0,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": false,
-            "HIDDEN": true,
-            "MAPPING": "Config",
-            "OPTIONS": {},
-            "SCHEMA": {},
-            "USEMAPPING": true
-        },
-        "TcHmiVision.Diagnostics": {
-            "ACCESS": 1,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": false,
-            "HIDDEN": true,
-            "MAPPING": "Diagnostics",
-            "OPTIONS": {},
-            "SCHEMA": {
-                "function": true,
-                "properties": {
-                    "Runtimes": {
-                        "additionalProperties": {
-                            "properties": {
-                                "adsState": {
-                                    "propertyOrder": 3,
-                                    "readOnly": true,
-                                    "type": "string"
-                                },
-                                "connectionState": {
-                                    "propertyOrder": 1,
-                                    "readOnly": true,
-                                    "type": "string"
-                                },
-                                "systemServiceAdsState": {
-                                    "propertyOrder": 2,
-                                    "readOnly": true,
-                                    "type": "string"
-                                }
-                            },
-                            "readOnly": true,
-                            "type": "object"
-                        },
-                        "readOnly": true,
-                        "type": "object"
-                    }
-                },
-                "readOnly": true,
-                "transient": true,
-                "type": "object"
-            },
-            "USEMAPPING": true
-        },
-        "TcHmiVision.GetSchema": {
-            "ACCESS": 3,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": false,
-            "HIDDEN": true,
-            "MAPPING": "GetSchema",
-            "OPTIONS": {},
-            "SCHEMA": {
-                "function": true,
-                "writeValue": {
-                    "type": "string"
-                }
-            },
-            "USEMAPPING": true
-        },
-        "TcHmiVision.ListSymbols": {
-            "ACCESS": 3,
-            "DOMAIN": "TcHmiVision",
-            "DYNAMIC": false,
-            "HIDDEN": true,
-            "MAPPING": "ListSymbols",
-            "OPTIONS": {},
-            "SCHEMA": {},
-            "USEMAPPING": true
-        },
         "Unsubscribe": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -3764,8 +4062,6 @@
                 "GetServerInformation": 3,
                 "GetSymbolAccess": 3,
                 "Heartbeat": 3,
-                "IPC.VISION.ipImageDispl.jpeg": 3,
-                "IPC.VISION.ipImageResultDispl.jpeg": 3,
                 "IsAuthRequired": 3,
                 "ListDomains": 3,
                 "ListEvents": 3,
@@ -3774,26 +4070,34 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
-                "PLC1.GVL.bExecuteWriteRegs0": 3,
-                "PLC1.GVL.bModbusCoilBit0": 3,
-                "PLC1.GVL.bModbusCoilBit1": 3,
-                "PLC1.GVL.bValve1": 3,
-                "PLC1.GVL.bValve2": 3,
-                "PLC1.GVL.bValve3": 3,
-                "PLC1.GVL.bValve4": 3,
-                "PLC1.GVL.bValve5": 3,
-                "PLC1.GVL.bValve6": 3,
-                "PLC1.GVL.bVirtualToggleButton1": 3,
-                "PLC1.GVL.bVirtualToggleButton2": 3,
-                "PLC1.GVL.bVirtualToggleButton3": 3,
-                "PLC1.GVL.bVirtualToggleButton4": 3,
-                "PLC1.GVL.bVirtualToggleButton5": 3,
-                "PLC1.GVL.bVirtualToggleButton6": 3,
-                "PLC1.GVL.sInputFromHMI": 3,
-                "PLC1.GVL.uLoadCellScaledValue": 3,
-                "PLC1.VISION.ipImageDispl": 3,
+                "PLC1.GVL.bButtonAuto": 3,
+                "PLC1.GVL.bButtonBw": 3,
+                "PLC1.GVL.bButtonFw": 3,
+                "PLC1.GVL.bButtonHalt": 3,
+                "PLC1.GVL.bDisable": 3,
+                "PLC1.GVL.bEnable": 3,
+                "PLC1.GVL.bFan": 3,
+                "PLC1.GVL.bLight": 3,
+                "PLC1.GVL.bReverseMotor": 3,
+                "PLC1.GVL.bSetMotorFrequency": 3,
+                "PLC1.GVL.bSwOff": 3,
+                "PLC1.GVL.bSwOn": 3,
+                "PLC1.GVL.fActivePower": 3,
+                "PLC1.GVL.fFrequency": 3,
+                "PLC1.GVL.fIL1": 3,
+                "PLC1.GVL.fUL1": 3,
+                "PLC1.GVL.fcosphi1": 3,
+                "PLC1.GVL.stAxis1.NcToPlc.ActPos": 3,
+                "PLC1.PRG_MotorDrive.nSpeed": 3,
+                "PLC1.PRG_Thermocouple.fTemp": 3,
+                "PLC1.PRG_VfdModbusRtu.nSetFreqVal": 3,
                 "SetLocale": 3,
                 "SubscribeEvents": 3,
+                "TcHmiSqliteHistorize.DeleteDatabaseEntries": 3,
+                "TcHmiSqliteHistorize.Diagnostics": 1,
+                "TcHmiSqliteHistorize.GetTrendLineData": 3,
+                "TcHmiSqliteHistorize.GetTrendLineWindow": 3,
+                "TcHmiSqliteHistorize.HistorizeData": 3,
                 "TcHmiSqliteLogger.Diagnostics": 1,
                 "TcHmiUserManagement.ChangePassword": 3,
                 "Unsubscribe": 3,
@@ -3841,7 +4145,6 @@
         "/Beckhoff.TwinCAT.HMI.BaseTemplate": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BaseTemplate.12.760.48\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.12.760.48\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.12.760.48\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Vision.Controls": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Vision.Controls.1.2.2\\runtimes\\native1.12-tchmi",
         "/bin": "..\\..\\WP_HMI\\bin\\",
         "/bin/framework": "..\\..\\WP_HMI\\bin\\framework",
         "/framework": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Framework.12.760.48\\runtimes\\native1.12-tchmi"

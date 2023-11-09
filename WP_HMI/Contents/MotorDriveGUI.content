@@ -1,3 +1,93 @@
-<div id="VisionGUI_5" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-creator-viewport-width="1920" data-tchmi-creator-viewport-height="1080" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-left-unit="%" data-tchmi-top-unit="%" data-tchmi-right-unit="%" data-tchmi-bottom-unit="%">
+<div id="DriveContent" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-creator-viewport-width="1920" data-tchmi-creator-viewport-height="1080" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-left-unit="%" data-tchmi-top-unit="%" data-tchmi-right-unit="%" data-tchmi-bottom-unit="%">
+<div id="ParamsContainer_1" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="95" data-tchmi-height-unit="%" data-tchmi-left-unit="%" data-tchmi-top="2" data-tchmi-top-unit="%" data-tchmi-width="30" data-tchmi-width-unit="%" data-tchmi-right-unit="%" data-tchmi-right="2">
+<div id="TcUcTextFieldHeader_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="10" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="%" data-tchmi-target-user-control="UserControls/TcUcTextField.usercontrol" data-tchmi-top-unit="%" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-name="Name" data-tchmi-value="Value" data-tchmi-top="0">
+</div>
+<div id="TextField_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="10" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="%" data-tchmi-target-user-control="UserControls/TcUcTextField.usercontrol" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-name="Actual Position" data-tchmi-unit="°" data-tchmi-top-unit="%" data-tchmi-top="%f%%ctrl%TcUcTextFieldHeader_1::Height%/ctrl%%/f%" data-tchmi-value="%f%%s%PLC1.GVL.stAxis1.NcToPlc.ActPos%/s%.toFixed(2)%/f%">
+</div>
+<div id="TitleBlock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="10" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="%" data-tchmi-text="Type your speed (°/s)" data-tchmi-top="%f%%ctrl%TcUcTextFieldHeader_1::Height%/ctrl%+%ctrl%TextField_1::Height%/ctrl%%/f%" data-tchmi-top-unit="%" data-tchmi-width="40" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="150" data-tchmi-text-font-size-unit="%">
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 1,
+  "right": 1,
+  "top": 1,
+  "bottom": 1,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
 
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+</div>
+<div id="SpeedInput" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiNumericInput" data-tchmi-auto-focus-out="true" data-tchmi-decimal-digits="0" data-tchmi-height="10" data-tchmi-height-unit="%" data-tchmi-left="%ctrl%TitleBlock::Width%/ctrl%" data-tchmi-left-unit="%" data-tchmi-max-value="10000" data-tchmi-min-value="0" data-tchmi-reset-to-last-valid-value="true" data-tchmi-top="%ctrl%TitleBlock::Top%/ctrl%" data-tchmi-top-unit="%" data-tchmi-width="60" data-tchmi-width-unit="%" data-tchmi-value-horizontal-alignment="Center" data-tchmi-value-font-size="150" data-tchmi-value-font-size-unit="%">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "SpeedInput.onUserInteractionFinished",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.PRG_MotorDrive.nSpeed%/s%",
+        "value": {
+          "objectType": "Symbol",
+          "valueType": "tchmi:general#/definitions/String",
+          "symbolExpression": "%ctrl%SpeedInput::Value%/ctrl%"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 1,
+  "right": 1,
+  "top": 1,
+  "bottom": 1,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+</div>
+<div id="RunFwButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="8" data-tchmi-height-unit="%" data-tchmi-left="16" data-tchmi-left-unit="%" data-tchmi-text="Forward" data-tchmi-top="32.5" data-tchmi-top-unit="%" data-tchmi-width="25" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-font-size-unit="%" data-tchmi-text-font-size="150" data-tchmi-state-symbol="%s%PLC1.GVL.bButtonFw%/s%">
+</div>
+<div id="RunBwButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="8" data-tchmi-height-unit="%" data-tchmi-left="57" data-tchmi-left-unit="%" data-tchmi-text="Backward" data-tchmi-top="32.5" data-tchmi-top-unit="%" data-tchmi-width="25" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-font-size-unit="%" data-tchmi-text-font-size="150" data-tchmi-state-symbol="%s%PLC1.GVL.bButtonBw%/s%">
+</div>
+<div id="HaltButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="8" data-tchmi-height-unit="%" data-tchmi-left="16" data-tchmi-left-unit="%" data-tchmi-text="Halt" data-tchmi-top="45.5" data-tchmi-top-unit="%" data-tchmi-width="25" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-font-size-unit="%" data-tchmi-text-font-size="150" data-tchmi-state-symbol="%s%PLC1.GVL.bButtonHalt%/s%">
+</div>
+<div id="TcHmiToggleButton" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleButton" data-tchmi-height="8" data-tchmi-height-unit="%" data-tchmi-left="57" data-tchmi-left-unit="%" data-tchmi-text="Auto" data-tchmi-top="45.5" data-tchmi-top-unit="%" data-tchmi-width="25" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size-unit="%" data-tchmi-text-font-size="150" data-tchmi-state-symbol="%s%PLC1.GVL.bButtonAuto%/s%">
+</div>
+</div>
 </div>
