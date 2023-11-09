@@ -5,19 +5,14 @@
 VAR
 	fActivePowerAbs: REAL;
 	fIL1Abs: REAL;
-	fIL2Abs: REAL;
-	fIL3Abs: REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[fActivePowerAbs := ABS(GVL.fActivePower);
-fIL1Abs := ABS(GVL.fIL1);
-fIL2Abs := ABS(GVL.fIL2);
-fIL3Abs := ABS(GVL.fIL3);]]></ST>
+fIL1Abs := ABS(GVL.fIL1);]]></ST>
     </Implementation>
     <LineIds Name="PRG_PowerMeasurement">
-      <LineId Id="10" Count="2" />
-      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
-		<SystemId>{9BF2F778-849B-5933-5388-57FFEBF2201B}</SystemId>
-		<IssueTime>2023-11-09T04:04:00</IssueTime>
-		<ExpireTime>2023-11-17T00:00:00</ExpireTime>
-		<LicenseKey>cf3ad2e13de6d1c0e07cdd62809fbe29f8206ca73a8d541c32f2dde811a2b812142902f79205af154419f45fcd6f4904b9628d98fca3bd952d38a8ec5463b2a080178c61649387e11434019661be9070e0330703a5d4654f2dbd2a4c51c5805ba8040a32f6a0f50540f8eef2d5d97ad6313536342d735d87d8e65c0ae54664b925160fb7184d5658a895ac0546ef5dc3bf057cbe49114a795e47d36a72aaebce0d5a7688a16f8e9fb7d364a2631842d6759bbb21ed54a35f40349abfccc1b2d4721406b0f98ab90f877d47bdde5dcab8eb33dbabab779b4e91bdf86477a8e23478e2fe9f3be976754c245a357802515eb2267001d3d570f8a3e5c2d475680d0a</LicenseKey>
+		<SystemId>{B375D0E8-9412-9D91-04C5-B1A76C1B6BBD}</SystemId>
+		<IssueTime>2023-11-07T03:37:00</IssueTime>
+		<ExpireTime>2023-11-15T00:00:00</ExpireTime>
+		<LicenseKey>a8637467425011cb099cde5a8e07814f0232caab0ebf9cdb0ef745c2120e05913c39bf1f4e094f80013a236650e19f3be0f16a711ecf7a8359311bfda76862d4bfe83020f0c2f798f4d7e238df282a31bc056a371fbb4955e53dabe39577720c61d29284a1d57f69bfabbf0ea3c8a3457e16199c62679c6c0b62e912fccc7a58f2db5fb4d182fe90b55b0bd53b967d6852d331337bc58b4128f35402cd4ab0b787c83b6c004537803084b7809f30673efca8892e787fd7afecf7876e0bb2e45146e358266c61abcb6350ebb7e2c946ccc8548d97db7a238139da39223b4344a0da9b4388514246065f9e9977116bf56c1e44f4e6efb4e455df0f7b3b0ca4ea8a</LicenseKey>
 		<License>
 			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
 			<Name>TC3 ADS</Name>
@@ -31,54 +31,9 @@
 			<OrderNo>TF5000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{2C358067-6E81-4F6A-B8D9-AC1F63FEB6FD}</LicenseId>
-			<Name>TC3 Vision Base</Name>
-			<OrderNo>TF7100</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{A1AF8A04-C08D-4853-A5A0-0E6C3A278A8C}</LicenseId>
 			<Name>TC3 Modbus-RTU</Name>
 			<OrderNo>TF6255</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{5762C59F-F838-4092-B24F-4E469453D3E9}</LicenseId>
-			<Name>TC3 Vision Code Reading</Name>
-			<OrderNo>TF7250</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{37E5160D-987B-4640-888D-0F97727B53E2}</LicenseId>
-			<Name>TC3 HMI Clients</Name>
-			<Instances>2</Instances>
-		</License>
-		<License>
-			<LicenseId>{A2091C4C-7D04-4202-B173-9984E7125BC0}</LicenseId>
-			<Name>TC3 HMI Targets</Name>
-			<Instances>1</Instances>
-		</License>
-		<License>
-			<LicenseId>{796D380F-D49E-4C0C-A05F-500052FAC883}</LicenseId>
-			<Name>TC3 HMI Server</Name>
-			<OrderNo>TF2000</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{2752D285-16AD-4E89-AE6C-80E72784D264}</LicenseId>
-			<Name>TC3 HMI Clients Pack 1</Name>
-			<OrderNo>TF2010</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{2FF93140-10E2-4662-A464-31B8A4673F26}</LicenseId>
-			<Name>TC3 GigE Vision Connector</Name>
-			<Instances>2</Instances>
-		</License>
-		<License>
-			<LicenseId>{081AC839-28D0-49CA-9792-72680E1F3249}</LicenseId>
-			<Name>TC3 TCP/UDP RT</Name>
-			<OrderNo>TF6311</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{B1065A48-8131-4608-A378-D67FA8BD826E}</LicenseId>
-			<Name>TC3 GigE Vision Connector Base</Name>
-			<OrderNo>TF7000</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

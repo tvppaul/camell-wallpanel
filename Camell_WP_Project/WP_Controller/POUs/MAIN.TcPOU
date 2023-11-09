@@ -9,15 +9,12 @@ END_VAR
       <ST><![CDATA[PRG_Thermocouple();
 PRG_PowerMeasurement();
 PRG_MotorDrive();
-PRG_PneumaticValves();
-PRG_PLCModbusRTU();
-PRG_LoadcellScaling();
-PRG_SafetyLightCurtain();]]></ST>
+PRG_VfdModbusRtu();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="17" Count="4" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="6" Count="1" />
       <LineId Id="11" Count="0" />
-      <LineId Id="25" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

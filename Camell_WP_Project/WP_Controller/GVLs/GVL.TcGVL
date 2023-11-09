@@ -5,28 +5,17 @@
 VAR_GLOBAL
 	//Thermocouple
 	nTemp AT %I*: INT;
+	bSwOn AT %I*: BOOL; //Self reset
+	bSwOff AT %I*: BOOL; //Self reset
+	bLight AT %Q*: BOOL;
+	bFan AT %Q*: BOOL;
 	
 	//Power measurement
-	// RMS Current
-	fIL1 AT %I*: REAL;
-	fIL2 AT %I*: REAL;
-	fIL3 AT %I*: REAL;
-	
-	//RMS Voltage
-	fUL1 AT %I*: REAL;
-	fUL2 AT %I*: REAL;
-	fUL3 AT %I*: REAL;
-	
-	//Active Power
-	fActivePower AT %I* : REAL;
-	
-	// Phase angle
-	fcosphi1 AT %I*: REAL;
-	fcosphi2 AT %I*: REAL;
-	fcosphi3 AT %I*: REAL;
-	
-	// Frequency
-	fFrequency AT %I*: REAL;
+	fIL1 AT %I*: REAL; //RMS Current
+	fUL1 AT %I*: REAL; //RMS Voltage
+	fActivePower AT %I*: REAL; //Active Power
+	fcosphi1 AT %I*: REAL; //Phase angle
+	fFrequency AT %I*: REAL; //Frequency
 	
 	//Motor drive
 	stAxis1: AXIS_REF;
@@ -36,8 +25,10 @@ VAR_GLOBAL
 	bButtonAuto AT %I*: BOOL; //Latch
 	
 	//VFD Modbus RTU
-	bEnable AT %I*: BOOL; //Self reset
-	bDisable AT %I*: BOOL; //Self reset
+	bEnable: BOOL; //Self reset
+	bDisable: BOOL; //Self reset
+	bReverseMotor: BOOL; //Self reset
+	bSetMotorFrequency: BOOL; //Self reset
 	
 	// Bit 0 and Bit 1 declaration
 	bModbusCoilBit0 : BOOL;
@@ -86,8 +77,6 @@ VAR_GLOBAL
 	bSafeRedLedInput AT %I*:BOOL; // safety red led reception signal for ouput signal imported from EL6910
 	bSafeRestartSignal AT %Q*: BOOL; //restart signal for safeESTop FB
 	bSafeRestartSignalInput AT %I*: BOOL; //restart signal
-	
-	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -4,13 +4,80 @@
     <Declaration><![CDATA[PROGRAM PRG_Thermocouple
 VAR
 	fTemp: REAL;
+	nMode: INT;
+	bOffStat: BOOL;
+	fbTONSwMode: TON;
+	fbRTrigSwOn: R_TRIG;
+	fbRTrigSwOff: R_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fTemp := GVL.nTemp;]]></ST>
+      <ST><![CDATA[fTemp := GVL.nTemp;
+fbRTrigSwOn(CLK:= GVL.bSwOn, Q=> );
+fbRTrigSwOff(CLK:= GVL.bSwOff, Q=> );
+
+CASE nMode OF
+	0: //Manual mode
+		IF NOT GVL.bLight THEN
+			fbTONSwMode(IN:= TRUE, PT:= T#10S, Q=> , ET=> );
+		END_IF
+		
+		IF fbTONSwMode.Q THEN
+			fbTONSwMode(IN:= FALSE);
+			nMode := 1;
+		END_IF
+		
+	1: //Automatic mode
+		IF fTemp <= 30 THEN
+			GVL.bLight := TRUE;
+			GVL.bFan := FALSE;
+		END_IF
+		
+		IF fTemp > 34 THEN
+			GVL.bLight := FALSE;
+			GVL.bFan := TRUE;
+		END_IF
+		
+		IF fbRTrigSwOn.Q OR fbRTrigSwOff.Q THEN
+			GVL.bFan := FALSE;
+			nMode := 0;
+		END_IF
+END_CASE
+
+IF fbRTrigSwOn.Q THEN
+	fbTONSwMode(IN:= FALSE);
+	GVL.bLight := TRUE;
+END_IF
+
+IF fbRTrigSwOff.Q THEN
+	GVL.bLight := FALSE;
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="PRG_Thermocouple">
       <LineId Id="5" Count="0" />
+      <LineId Id="53" Count="2" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="68" Count="2" />
+      <LineId Id="36" Count="2" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="42" Count="1" />
+      <LineId Id="45" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="84" Count="7" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="14" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -12,6 +12,7 @@ VAR
 	fbRTrigMoveBw: R_TRIG;
 	fbRTrigHalt: R_TRIG;
 	nAutoState: INT;
+	nSpeed: INT := 400; //degrees/sec
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -768,7 +769,7 @@ A_Halt();]]></ST>
                           </o>
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"400"</v>
+                              <v n="Operand">"nSpeed"</v>
                               <v n="Type">"INT"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
@@ -1147,7 +1148,7 @@ A_Halt();]]></ST>
                           </o>
                           <o>
                             <o n="Operand" t="Operand">
-                              <v n="Operand">"400"</v>
+                              <v n="Operand">"nSpeed"</v>
                               <v n="Type">"INT"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>

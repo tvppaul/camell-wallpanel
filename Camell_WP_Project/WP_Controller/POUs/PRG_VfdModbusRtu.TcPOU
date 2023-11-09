@@ -4,38 +4,132 @@
     <Declaration><![CDATA[PROGRAM PRG_VfdModbusRtu
 VAR
 	fbVfdMb: ModbusRtuMaster_KL6x22B;
-	fbRTrigWrite: R_Trig;
-	fbRTrigEnable: R_Trig;
-	fbRTrigDisable: R_Trig;
+	fbRTrigWrite: R_TRIG;
+	fbRTrigEnable: R_TRIG;
+	fbRTrigDisable: R_TRIG;
+	fbRTrigReverseMotor: R_TRIG;
+	fbRTrigSetFrequency: R_TRIG;
 	fbTON: TON;
+	fbTON1: TON;
+	fbTON2: TON;
+	fbTON3: TON;
 	wQty: WORD := 1;
 	wMbAddr: WORD;
 	wCmd: WORD;
+	wCmdPrev: WORD;
 	bWrite: BOOL;
+	bEnablePulse: BOOL;
+	bPendingFlag: BOOL;
+	bPulse: BOOL;
+	bSetFreqCmd: BOOL;
+	nSetFreqState: INT;
+	nSetFreqVal: WORD;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbRTrigWrite(CLK:=bWrite, Q=>);
 fbRTrigEnable(CLK:=GVL.bEnable, Q=>);
-fbRTrigEnable(CLK:=GVL.bDisable, Q=>);
+fbRTrigDisable(CLK:=GVL.bDisable, Q=>);
+fbRTrigReverseMotor(CLK:= GVL.bReverseMotor, Q=> );
+fbRTrigSetFrequency(CLK:= GVL.bSetMotorFrequency, Q=> );
 
+//Enable control word
 IF fbRTrigEnable.Q THEN
-	bWrite := TRUE;
-	fbTON(IN:= bWrite, PT:= T#500MS, Q=> , ET=> );
-	wMbAddr := 416;
-	wCmd := 1;
+	IF bWrite THEN
+		bPendingFlag := TRUE; //Raise flag for pending command
+	ELSE
+		bWrite := TRUE;
+	END_IF
+	bEnablePulse := TRUE;
+	wMbAddr := 417;
+	wCmd := 32771;
 END_IF
 
+//Disable control word
 IF fbRTrigDisable.Q THEN
-	bWrite := TRUE;
-	fbTON(IN:= bWrite, PT:= T#500MS, Q=> , ET=> );
-	wMbAddr := 416;
+	IF bWrite THEN
+		bPendingFlag := TRUE; //Raise flag for pending command
+	ELSE
+		bWrite := TRUE;
+	END_IF
+	
+	bEnablePulse := FALSE;
+	wMbAddr := 417;
 	wCmd := 0;
 END_IF
 
+//Reverse motor
+IF fbRTrigReverseMotor.Q THEN
+	IF bWrite THEN
+		bPendingFlag := TRUE; //Raise flag for pending command
+	ELSE
+		bWrite := TRUE;
+	END_IF
+	bEnablePulse := TRUE;
+	wMbAddr := 417;
+	wCmd := 32777;	
+END_IF
+
+//Set motor frequency
+IF fbRTrigSetFrequency.Q THEN
+	bSetFreqCmd := TRUE;
+	wCmdPrev := wCmd;
+END_IF
+
+IF bSetFreqCmd THEN
+	CASE nSetFreqState OF
+		0: //Set frequency
+			IF bWrite THEN
+				bPendingFlag := TRUE; //Raise flag for pending command
+			ELSE
+				bWrite := TRUE;
+			END_IF
+			bEnablePulse := FALSE;
+			wMbAddr := 215;
+			wCmd := nSetFreqVal*10;
+			IF fbVfdMb.BUSY THEN
+				nSetFreqState := 1;
+			END_IF
+		1: //Continue the previous command
+			bSetFreqCmd := FALSE;
+			IF wCmdPrev <> 0 THEN
+				bEnablePulse := TRUE; //Short delay before pulse starts
+				wMbAddr := 417;
+				wCmd := wCmdPrev;
+			END_IF
+			nSetFreqState := 0;
+	END_CASE
+END_IF
+//Keep sending enable signal to avoid watchdog error
+fbTON1(IN:= bEnablePulse AND NOT fbTON2.Q, PT:= T#600MS, Q=> bPulse, ET=> ); //Pulse off time
+fbTON2(IN:= fbTON1.Q, PT:= T#300MS, Q=> , ET=> );//Pulse on time
+
+CASE wCmd OF
+	32771: //Run motor forward
+		GVL.bEnable := bPulse;
+	32777: //Reverse motor
+		GVL.bReverseMotor := bPulse;
+END_CASE
+
+IF bWrite THEN
+	fbTON(IN:= bWrite, PT:= T#100MS, Q=> , ET=> );
+END_IF
+
+//Reset bWrite after a short delay
 IF fbTON.Q THEN
 	fbTON(IN:=FALSE);
 	bWrite := FALSE;
+END_IF
+
+//Handle the raised pending flag
+IF bPendingFlag AND NOT bWrite THEN
+	fbTON3(IN:= TRUE, PT:= T#100MS, Q=> , ET=> );
+END_IF
+
+IF fbTON3.Q THEN
+	fbTON3(IN:= FALSE);
+	bPendingFlag := FALSE;
+	bWrite := TRUE;
 END_IF
 
 fbVfdMb.WriteRegs(
@@ -44,7 +138,7 @@ fbVfdMb.WriteRegs(
 	MBAddr:= wMbAddr, 
 	cbLength:= SIZEOF(wCmd), 
 	pMemoryAddr:= ADR(wCmd), 
-	Execute:= fbRTrigWrite.Q, 
+	Execute:= bWrite,//fbRTrigWrite.Q, 
 	Timeout:= T#1S, 
 	BUSY=> , 
 	Error=> , 
@@ -58,18 +152,83 @@ fbVfdMb.WriteRegs(
       <LineId Id="37" Count="0" />
       <LineId Id="39" Count="0" />
       <LineId Id="60" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="168" Count="0" />
+      <LineId Id="135" Count="0" />
       <LineId Id="45" Count="0" />
-      <LineId Id="43" Count="1" />
-      <LineId Id="51" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="163" Count="3" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="96" Count="0" />
       <LineId Id="58" Count="1" />
       <LineId Id="38" Count="0" />
-      <LineId Id="63" Count="5" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="113" Count="1" />
+      <LineId Id="117" Count="1" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="67" Count="1" />
       <LineId Id="62" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="156" Count="3" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="162" Count="0" />
+      <LineId Id="161" Count="0" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="198" Count="3" />
+      <LineId Id="208" Count="3" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="212" Count="1" />
+      <LineId Id="217" Count="2" />
+      <LineId Id="203" Count="0" />
+      <LineId Id="227" Count="0" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="234" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="150" Count="0" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="153" Count="2" />
+      <LineId Id="152" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="139" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="53" Count="0" />
       <LineId Id="55" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="56" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="127" Count="0" />
       <LineId Id="46" Count="0" />
       <LineId Id="19" Count="10" />
       <LineId Id="5" Count="0" />
