@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_Scale" Id="{7ee821b3-fa0a-42b6-9585-6a2dc34f596f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Scale : REAL
+VAR_INPUT
+	nAIn: DINT;
+	fOutMin: REAL; // Maximum of the output value
+	fOutMax: REAL; // Minimum of the output value
+	nInMin: DINT; // Minimum of the input value
+	nInMax: DINT; // Maximum of the input value
+END_VAR
+VAR
+	fAIn: REAL;
+	fSlope: REAL;
+	fConstant: REAL;
+	fInMax: REAL;
+	fInMin: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Binding rules
+IF nAIn >= nInMax THEN
+	nAIN := nInMax;
+ELSIF nAIn <= nInMin THEN
+	nAIn := nInMin;
+END_IF
+
+fAIn := DINT_TO_REAL(nAIn);
+fInMax := DINT_TO_REAL(nInMax);
+fInMin := DINT_TO_REAL(nInMin);
+
+// y = ax + b
+
+// Find a
+fSlope := (fOutMax-fOutMin)/(fInMax-fInMin);
+
+// Find b
+fConstant := fOutMin - (fSlope * fInMin);
+
+F_Scale := fSlope*fAin + fConstant;]]></ST>
+    </Implementation>
+    <LineIds Name="F_Scale">
+      <LineId Id="23" Count="18" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

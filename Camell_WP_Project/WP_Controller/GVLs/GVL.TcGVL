@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{7d4e8f35-7948-43f5-9115-ee9eaf49ccbc}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	//Thermocouple
+	nTemp AT %I*: INT;
+	
+	//Power measurement
+	// RMS Current
+	fIL1 AT %I*: REAL;
+	fIL2 AT %I*: REAL;
+	fIL3 AT %I*: REAL;
+	
+	//RMS Voltage
+	fUL1 AT %I*: REAL;
+	fUL2 AT %I*: REAL;
+	fUL3 AT %I*: REAL;
+	
+	//Active Power
+	fActivePower AT %I* : REAL;
+	
+	// Phase angle
+	fcosphi1 AT %I*: REAL;
+	fcosphi2 AT %I*: REAL;
+	fcosphi3 AT %I*: REAL;
+	
+	// Frequency
+	fFrequency AT %I*: REAL;
+	
+	//Motor drive
+	stAxis1: AXIS_REF;
+	bButtonFw AT %I*: BOOL; //Self reset
+	bButtonBw AT %I*: BOOL; //Self reset
+	bButtonHalt AT %I*: BOOL; //Self reset
+	bButtonAuto AT %I*: BOOL; //Latch
+	
+	//VFD Modbus RTU
+	bEnable AT %I*: BOOL; //Self reset
+	bDisable AT %I*: BOOL; //Self reset
+	
+	// Bit 0 and Bit 1 declaration
+	bModbusCoilBit0 : BOOL;
+	bModbusCoilBit1 : BOOL;
+	
+	// Virtual toggle buttons for write values using MODBUS RTU
+	bExecuteWriteCoils: BOOL:=TRUE;
+	bExecuteWriteRegs0: BOOL;
+	//bExecuteWriteRegs1: BOOL;
+
+	// Input STRING from HMI, MAXIMUM 20 characters
+	sInputFromHMI: STRING(20);		
+
+	//Constant value for testing, used for EL2596
+	bLedEnable AT %Q*:BOOL:=TRUE;
+	bLedOutput AT %Q*:BOOL:=TRUE;
+	bOutputCurrent AT %Q*: UINT:=300;
+	
+	// Constant value for EL2809 controlling strobe
+	bLedEnableEL2xxx AT %Q*:BOOL:=TRUE; 
+	
+	// Loadcell scaling variables
+	uLoadCellRawValue AT %I*: DINT;
+	uLoadCellScaledValue: REAL;
+	
+	// Output signal variables for sneumatic valves 
+	bValve1 AT %Q*:BOOL;
+	bValve2 AT %Q*:BOOL;
+	bValve3 AT %Q*:BOOL;
+	bValve4 AT %Q*:BOOL;
+	bValve5 AT %Q*:BOOL;
+	bValve6 AT %Q*:BOOL;
+	bVirtualToggleButton1:BOOL;
+	bVirtualToggleButton2:BOOL;
+	bVirtualToggleButton3:BOOL;
+	bVirtualToggleButton4:BOOL;
+	bVirtualToggleButton5:BOOL;
+	bVirtualToggleButton6:BOOL;
+	
+	// TwinSAFE declaration
+	bSafeRun AT %Q*:BOOL;
+	bSafeAck AT %Q*:BOOL;
+	bSafeFBErr AT %I*: BOOL;
+	bSafeCommErr AT %I*: BOOL;
+	bSafeRedLedOutput AT %Q*:BOOL; // safety output signal for EL2809 
+	bSafeRedLedInput AT %I*:BOOL; // safety red led reception signal for ouput signal imported from EL6910
+	bSafeRestartSignal AT %Q*: BOOL; //restart signal for safeESTop FB
+	bSafeRestartSignalInput AT %I*: BOOL; //restart signal
+	
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

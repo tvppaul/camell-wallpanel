@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_PneumaticValves" Id="{8240b1cd-240e-4117-82e0-94107c2fc5e1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_PneumaticValves
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Valve 1
+IF GVL.bVirtualToggleButton1 THEN
+	GVL.bValve1:=TRUE;
+ELSE
+	GVL.bValve1:=FALSE;
+END_IF
+
+// Valve2
+IF GVL.bVirtualToggleButton2 THEN
+	GVL.bValve2:=TRUE;
+ELSE
+	GVL.bValve2:=FALSE;
+END_IF
+
+// Valve 3
+IF GVL.bVirtualToggleButton3 THEN
+	GVL.bValve3:=TRUE;
+ELSE
+	GVL.bValve3:=FALSE;
+END_IF
+
+
+// Valve 4
+IF GVL.bVirtualToggleButton4 THEN
+	GVL.bValve4:=TRUE;
+ELSE
+	GVL.bValve4:=FALSE;
+END_IF
+
+// Valve 5
+IF GVL.bVirtualToggleButton5 THEN
+	GVL.bValve5:=TRUE;
+ELSE
+	GVL.bValve5:=FALSE;
+END_IF
+
+// Valve 6
+IF GVL.bVirtualToggleButton6 THEN
+	GVL.bValve6:=TRUE;
+ELSE
+	GVL.bValve6:=FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="PRG_PneumaticValves">
+      <LineId Id="6" Count="40" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
